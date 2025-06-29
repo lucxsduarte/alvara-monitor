@@ -1,18 +1,17 @@
 package com.empresa.contabilidade.alvara_monitor.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
 
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
+@Table(name = "empresas")
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(of = "id")
 public class Empresa {
 
     @Id
@@ -20,7 +19,6 @@ public class Empresa {
     private Long id;
 
     private String nome;
-
     private LocalDate vencBombeiros;
     private LocalDate vencVigilancia;
     private LocalDate vencPolicia;
