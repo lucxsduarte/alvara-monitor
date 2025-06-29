@@ -11,9 +11,10 @@ Backend da aplicação de monitoramento de alvarás, desenvolvido com Spring Boo
 - ✅ **Tratamento de Exceções:** Sistema de exceções customizadas (`BusinessException`, `ResourceNotFoundException`) com um handler global (`@RestControllerAdvice`) para retornar erros JSON padronizados.
 - ✅ **Configuração de CORS:** Permite a comunicação segura com o frontend da aplicação.
 - ✅ **Gerenciamento de Configuração:** Uso de perfis (`profiles`) do Spring para separar configurações sensíveis (senhas) do código-fonte.
+- ✅ **Segurança com JWT:** Fluxo de autenticação via API com endpoint `/login` e proteção de rotas baseada em JSON Web Token.
 
 ### Próximos Passos (Roadmap)
-- 🚧 **Segurança:** Implementação de autenticação e autorização com Spring Security e JWT.
+- 🚧 **Segurança (Integração Frontend):** Conectar a aplicação Angular ao novo sistema de autenticação JWT.
 - ⏳ **Testes:** Adição de testes de unidade (JUnit/Mockito) e de integração (MockMvc).
 - ⏳ **Notificações:** Reativação do serviço de agendamento (`@Scheduled`) para envio de e-mails de alerta.
 
