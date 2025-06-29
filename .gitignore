@@ -1,0 +1,26 @@
+# Arquivos de log
+*.log
+LOGS/
+
+# Arquivos compilados do Maven
+target/
+
+# Arquivos de configuração de IDEs
+.idea/
+*.iml
+.vscode/
+.settings/
+.classpath
+.project
+
+# Arquivos do sistema operacional
+.DS_Store
+Thumbs.db
+
+# Ignora pacotes de dependências
+.mvn/
+
+# Arquivos de configuração de ambiente
+# ESTA É A REGRA MAIS IMPORTANTE: IGNORA QUALQUER ARQUIVO application-*.yml
+application-*.yml
+application-*.properties

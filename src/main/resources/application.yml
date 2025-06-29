@@ -1,0 +1,20 @@
+server:
+  port: 8080
+
+spring:
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        jdbc:
+          time_zone: UTC
+    hibernate:
+      ddl-auto: update
+
+  # Ativa o perfil 'dev' por padrão. Isso fará o Spring procurar por um arquivo application-dev.yml
+  profiles:
+    active: dev
+
+alerta:
+  dias: 7
