@@ -14,7 +14,7 @@ Backend da aplicação de monitoramento de alvarás, desenvolvido com Spring Boo
 - ✅ **Segurança com JWT:** Fluxo de autenticação via API com endpoint `/login` e proteção de rotas baseada em JSON Web Token.
 
 ### Próximos Passos (Roadmap)
-- 🚧 **Segurança (Integração Frontend):** Conectar a aplicação Angular ao novo sistema de autenticação JWT.
+- ✅ **Segurança com JWT:** Implementação do backend e integração completa com o frontend.
 - ⏳ **Testes:** Adição de testes de unidade (JUnit/Mockito) e de integração (MockMvc).
 - ⏳ **Notificações:** Reativação do serviço de agendamento (`@Scheduled`) para envio de e-mails de alerta.
 
