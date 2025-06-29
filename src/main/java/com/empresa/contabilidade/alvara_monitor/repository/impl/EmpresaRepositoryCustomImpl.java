@@ -19,10 +19,10 @@ public class EmpresaRepositoryCustomImpl implements EmpresaRepositoryCustom {
     @Override
     public long countAlvarasVencidos(final LocalDate dataReferencia) {
         final var nativeSql = "SELECT COUNT(*) FROM ( " +
-                "SELECT 1 FROM empresa WHERE venc_bombeiros < ? UNION ALL " +
-                "SELECT 1 FROM empresa WHERE venc_vigilancia < ? UNION ALL " +
-                "SELECT 1 FROM empresa WHERE venc_policia < ? UNION ALL " +
-                "SELECT 1 FROM empresa WHERE venc_funcionamento < ? " +
+                "SELECT 1 FROM empresas WHERE venc_bombeiros < ? UNION ALL " +
+                "SELECT 1 FROM empresas WHERE venc_vigilancia < ? UNION ALL " +
+                "SELECT 1 FROM empresas WHERE venc_policia < ? UNION ALL " +
+                "SELECT 1 FROM empresas WHERE venc_funcionamento < ? " +
                 ") AS vencidos";
 
         final var query = entityManager.createNativeQuery(nativeSql);
@@ -39,13 +39,13 @@ public class EmpresaRepositoryCustomImpl implements EmpresaRepositoryCustom {
     @SuppressWarnings("unchecked")
     public List<AlvaraVencendoDTO> findAlvarasVencendoNoPeriodo(LocalDate dataInicio, LocalDate dataFim) {
         final var nativeSql =
-                "SELECT id, nome, 'Bombeiros' as tipo_alvara, venc_bombeiros as data_vencimento FROM empresa WHERE venc_bombeiros BETWEEN ? AND ? " +
+                "SELECT id, nome, 'Bombeiros' as tipo_alvara, venc_bombeiros as data_vencimento FROM empresas WHERE venc_bombeiros BETWEEN ? AND ? " +
                         "UNION ALL " +
-                        "SELECT id, nome, 'Vigilância Sanitária' as tipo_alvara, venc_vigilancia as data_vencimento FROM empresa WHERE venc_vigilancia BETWEEN ? AND ? " +
+                        "SELECT id, nome, 'Vigilância Sanitária' as tipo_alvara, venc_vigilancia as data_vencimento FROM empresas WHERE venc_vigilancia BETWEEN ? AND ? " +
                         "UNION ALL " +
-                        "SELECT id, nome, 'Polícia Civil' as tipo_alvara, venc_policia as data_vencimento FROM empresa WHERE venc_policia BETWEEN ? AND ? " +
+                        "SELECT id, nome, 'Polícia Civil' as tipo_alvara, venc_policia as data_vencimento FROM empresas WHERE venc_policia BETWEEN ? AND ? " +
                         "UNION ALL " +
-                        "SELECT id, nome, 'Funcionamento' as tipo_alvara, venc_funcionamento as data_vencimento FROM empresa WHERE venc_funcionamento BETWEEN ? AND ?";
+                        "SELECT id, nome, 'Funcionamento' as tipo_alvara, venc_funcionamento as data_vencimento FROM empresas WHERE venc_funcionamento BETWEEN ? AND ?";
 
         final var query = entityManager.createNativeQuery(nativeSql);
         query.setParameter(1, dataInicio);
@@ -72,7 +72,7 @@ public class EmpresaRepositoryCustomImpl implements EmpresaRepositoryCustom {
     @Override
     @SuppressWarnings("unchecked")
     public List<Empresa> findComAlvarasVencidos(LocalDate dataReferencia) {
-        final var nativeSql = "SELECT * FROM empresa e WHERE " +
+        final var nativeSql = "SELECT * FROM empresas e WHERE " +
                 "e.venc_bombeiros < ? OR " +
                 "e.venc_vigilancia < ? OR " +
                 "e.venc_policia < ? OR " +

@@ -19,7 +19,7 @@ public class DataInitializer implements CommandLineRunner {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
         if (Objects.isNull(usuarioRepository.findByLogin("admin"))) {
             log.info("Nenhum usuário 'admin' encontrado, criando um novo...");
 
