@@ -12,6 +12,7 @@ import org.springframework.util.StringUtils;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -66,7 +67,10 @@ public class EmpresaService {
             throw new BusinessException("O nome da empresa não pode ser vazio.");
         }
 
-        if (empresa.getVencPolicia() == null && empresa.getVencBombeiros() == null && empresa.getVencVigilancia() == null && empresa.getVencFuncionamento() == null) {
+        if (Objects.isNull(empresa.getVencPolicia())
+                && Objects.isNull(empresa.getVencBombeiros())
+                && Objects.isNull(empresa.getVencVigilancia())
+                && Objects.isNull(empresa.getVencFuncionamento())) {
             throw new BusinessException("É necessário preencher a data de vencimento de pelo menos um alvará.");
         }
     }
