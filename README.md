@@ -8,15 +8,11 @@ Backend da aplicação de monitoramento de alvarás, desenvolvido com Spring Boo
 - ✅ **API REST Completa:** CRUD completo e funcional para a entidade `Empresa`, com filtros e busca.
 - ✅ **Endpoint de Dashboard:** Um endpoint de resumo (`/api/dashboard/summary`) com dados pré-calculados para otimizar a performance do frontend.
 - ✅ **Lógica de Importação:** Serviço para importação de dados iniciais a partir de uma planilha CSV via URL.
-- ✅ **Tratamento de Exceções:** Sistema de exceções customizadas (`BusinessException`, `ResourceNotFoundException`) com um handler global (`@RestControllerAdvice`) para retornar erros JSON padronizados.
-- ✅ **Configuração de CORS:** Permite a comunicação segura com o frontend da aplicação.
-- ✅ **Gerenciamento de Configuração:** Uso de perfis (`profiles`) do Spring para separar configurações sensíveis (senhas) do código-fonte.
+- ✅ **Tratamento de Exceções:** Sistema de exceções customizadas com um handler global (`@RestControllerAdvice`).
 - ✅ **Segurança com JWT:** Fluxo de autenticação via API com endpoint `/login` e proteção de rotas baseada em JSON Web Token.
-
-### Próximos Passos (Roadmap)
-- ✅ **Segurança com JWT:** Implementação do backend e integração completa com o frontend.
-- ⏳ **Testes:** Adição de testes de unidade (JUnit/Mockito) e de integração (MockMvc).
-- ⏳ **Notificações:** Reativação do serviço de agendamento (`@Scheduled`) para envio de e-mails de alerta.
+- ✅ **Qualidade Assegurada por Testes:** Cobertura de testes de unidade (Mockito) para a camada de serviço e testes de integração (MockMvc) para a camada de controllers.
+- ✅ **Gerenciamento de Configuração:** Uso de perfis (`profiles`) do Spring para separar configurações sensíveis (senhas) do código-fonte.
+- ✅ **Configuração de CORS:** Permite a comunicação segura com o frontend da aplicação.
 
 ### Como Executar Localmente
 1.  Clone este repositório.
