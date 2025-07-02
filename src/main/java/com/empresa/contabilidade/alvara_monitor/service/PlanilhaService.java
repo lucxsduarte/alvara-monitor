@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -23,6 +22,7 @@ import java.util.regex.Pattern;
 public class PlanilhaService {
 
     private final EmpresaRepository empresaRepository;
+    private final CsvDataProvider csvDataProvider;
 
     @Value("${planilha.url}")
     private String planilhaUrl;
@@ -31,10 +31,7 @@ public class PlanilhaService {
     public void importarPlanilha() {
         log.info("Iniciando leitura da planilha de empresas...");
 
-        try {
-            final var url = new URL(planilhaUrl);
-            var reader = new BufferedReader(new InputStreamReader(url.openStream()));
-
+        try (var reader = new BufferedReader(new InputStreamReader(csvDataProvider.lerDadosDaUrl(planilhaUrl)))) {
             var linha = "";
             var primeiraLinha = true;
             final var listaEmpresas = new ArrayList<Empresa>();

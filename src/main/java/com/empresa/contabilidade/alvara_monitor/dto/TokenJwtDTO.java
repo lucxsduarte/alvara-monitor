@@ -1,4 +1,4 @@
 package com.empresa.contabilidade.alvara_monitor.dto;
 
-public record TokenJWTDTO(String token) {
+public record TokenJwtDTO(String token) {
 }

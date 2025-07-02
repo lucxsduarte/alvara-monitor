@@ -1,7 +1,7 @@
 package com.empresa.contabilidade.alvara_monitor.controller;
 
 import com.empresa.contabilidade.alvara_monitor.dto.DadosAutenticacaoDTO;
-import com.empresa.contabilidade.alvara_monitor.dto.TokenJWTDTO;
+import com.empresa.contabilidade.alvara_monitor.dto.TokenJwtDTO;
 import com.empresa.contabilidade.alvara_monitor.model.Usuario;
 import com.empresa.contabilidade.alvara_monitor.service.TokenService;
 import lombok.RequiredArgsConstructor;
@@ -22,13 +22,13 @@ public class AutenticacaoController {
     private final TokenService tokenService;
 
     @PostMapping("/login")
-    public ResponseEntity<TokenJWTDTO> efetuarLogin(@RequestBody DadosAutenticacaoDTO dados) {
+    public ResponseEntity<TokenJwtDTO> efetuarLogin(@RequestBody DadosAutenticacaoDTO dados) {
         var authenticationToken = new UsernamePasswordAuthenticationToken(dados.login(), dados.senha());
 
         var authentication = manager.authenticate(authenticationToken);
 
         var tokenJWT = tokenService.gerarToken((Usuario) authentication.getPrincipal());
 
-        return ResponseEntity.ok(new TokenJWTDTO(tokenJWT));
+        return ResponseEntity.ok(new TokenJwtDTO(tokenJWT));
     }
 }
