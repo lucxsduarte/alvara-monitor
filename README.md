@@ -10,6 +10,7 @@ Backend da aplicação de monitoramento de alvarás, desenvolvido com Spring Boo
 - ✅ **Lógica de Importação:** Serviço para importação de dados iniciais a partir de uma planilha CSV via URL.
 - ✅ **Tratamento de Exceções:** Sistema de exceções customizadas com um handler global (`@RestControllerAdvice`).
 - ✅ **Segurança com JWT:** Fluxo de autenticação via API com endpoint `/login` e proteção de rotas baseada em JSON Web Token.
+- ✅ **Gerenciamento de Usuários (Admin):** Endpoints seguros para listar, criar, editar e deletar usuários.
 - ✅ **Qualidade Assegurada por Testes:** Cobertura de testes de unidade (Mockito) para a camada de serviço e testes de integração (MockMvc) para a camada de controllers.
 - ✅ **Gerenciamento de Configuração:** Uso de perfis (`profiles`) do Spring para separar configurações sensíveis (senhas) do código-fonte.
 - ✅ **Configuração de CORS:** Permite a comunicação segura com o frontend da aplicação.
