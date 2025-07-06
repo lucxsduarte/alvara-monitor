@@ -34,6 +34,7 @@ public class SecurityConfig implements WebMvcConfigurer {
                 .authorizeHttpRequests(req -> {
                     req.requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll();
                     req.requestMatchers(HttpMethod.GET, "/api/planilha/importar-planilha").permitAll();
+                    req.requestMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**").permitAll();
                     req.requestMatchers("/api/admin/**").hasRole("ADMIN");
                     req.requestMatchers("/api/**").hasAnyRole("USER", "ADMIN");
                     req.anyRequest().denyAll();

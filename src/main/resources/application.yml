@@ -12,9 +12,6 @@ spring:
     hibernate:
       ddl-auto: update
 
-  # Ativa o perfil 'dev' por padrão. Isso fará o Spring procurar por um arquivo application-dev.yml
+  # Ativa o perfil 'dev' por padrao. Isso fara o Spring procurar por um arquivo application-dev.yml
   profiles:
     active: dev
-
-alerta:
-  dias: 7

@@ -14,9 +14,11 @@ Backend da aplicação de monitoramento de alvarás, desenvolvido com Spring Boo
 - ✅ **Qualidade Assegurada por Testes:** Cobertura de testes de unidade (Mockito) para a camada de serviço e testes de integração (MockMvc) para a camada de controllers.
 - ✅ **Gerenciamento de Configuração:** Uso de perfis (`profiles`) do Spring para separar configurações sensíveis (senhas) do código-fonte.
 - ✅ **Configuração de CORS:** Permite a comunicação segura com o frontend da aplicação.
+- ✅ **Documentação Interativa (Swagger):** UI do Swagger para visualização e teste de todos os endpoints da API.
 
 ### Como Executar Localmente
 1.  Clone este repositório.
 2.  Para rodar em ambiente de desenvolvimento, crie um arquivo `src/main/resources/application-dev.yml` com as suas credenciais do banco de dados PostgreSQL.
 3.  Execute a aplicação usando sua IDE ou via Maven (`mvn spring-boot:run`).
 4.  A API estará disponível em `http://localhost:8080`.
+5.  A documentação interativa da API pode ser acessada em: `http://localhost:8080/swagger-ui.html`
