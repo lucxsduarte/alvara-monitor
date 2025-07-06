@@ -20,7 +20,7 @@ class TokenServiceTest {
     @Test
     @DisplayName("Deve gerar um token JWT válido para um usuário")
     void gerarTokenValido() {
-        final var usuario = new Usuario(1L, "admin", "senha");
+        final var usuario = new Usuario(1L, "teste", "senha", "ROLE_USER");
 
         final var tokenGerado = tokenService.gerarToken(usuario);
 
@@ -28,19 +28,19 @@ class TokenServiceTest {
 
         final var decodedJWT = JWT.decode(tokenGerado);
         assertEquals("API Alvara.monitor", decodedJWT.getIssuer());
-        assertEquals("admin", decodedJWT.getSubject());
+        assertEquals("teste", decodedJWT.getSubject());
     }
 
     @Test
     @DisplayName("Deve extrair o subject (login) corretamente de um token válido")
     void extrairSubjectTokenValido() {
-        final var usuario = new Usuario(1L, "admin", "senha");
+        final var usuario = new Usuario(1L, "teste", "senha", "ROLE_USER");
         final var tokenGerado = tokenService.gerarToken(usuario);
 
         final var subject = tokenService.getSubject(tokenGerado);
 
         assertNotNull(subject);
-        assertEquals("admin", subject);
+        assertEquals("teste", subject);
     }
 
     @Test

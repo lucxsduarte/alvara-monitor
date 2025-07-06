@@ -9,7 +9,6 @@ import jakarta.persistence.PersistenceContext;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class EmpresaRepositoryCustomImpl implements EmpresaRepositoryCustom {
 
@@ -66,7 +65,7 @@ public class EmpresaRepositoryCustomImpl implements EmpresaRepositoryCustom {
                         (String) row[2],
                         (row[3] instanceof Date) ? ((Date) row[3]).toLocalDate() : null
                 ))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override

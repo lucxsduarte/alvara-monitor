@@ -76,7 +76,7 @@ class AutenticacaoControllerTest {
     @DisplayName("Deve retornar status 200 OK e um token JWT ao logar com credenciais válidas")
     void deveRetornarOkETokenParaCredenciaisValidas() throws Exception {
         final var dadosLogin = new DadosAutenticacaoDTO("admin", "123");
-        final var usuario = new Usuario(1L, "admin", "senha-criptografada");
+        final var usuario = new Usuario(1L, "admin", "senha-criptografada", "ROLE_USER");
         final var authentication = new UsernamePasswordAuthenticationToken(usuario, null, usuario.getAuthorities());
 
         when(authenticationManager.authenticate(any())).thenReturn(authentication);

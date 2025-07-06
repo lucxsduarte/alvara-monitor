@@ -6,6 +6,7 @@ import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.empresa.contabilidade.alvara_monitor.model.Usuario;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -25,6 +26,7 @@ public class TokenService {
             return JWT.create()
                     .withIssuer("API Alvara.monitor")
                     .withSubject(usuario.getLogin())
+                    .withClaim("roles", usuario.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList())
                     .withExpiresAt(dataExpiracao())
                     .sign(algoritmo);
         } catch (JWTCreationException e) {

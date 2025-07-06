@@ -34,7 +34,8 @@ public class SecurityConfig implements WebMvcConfigurer {
                 .authorizeHttpRequests(req -> {
                     req.requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll();
                     req.requestMatchers(HttpMethod.GET, "/api/planilha/importar-planilha").permitAll();
-                    req.requestMatchers("/api/**").hasRole("USER");
+                    req.requestMatchers("/api/admin/**").hasRole("ADMIN");
+                    req.requestMatchers("/api/**").hasAnyRole("USER", "ADMIN");
                     req.anyRequest().denyAll();
                 })
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)

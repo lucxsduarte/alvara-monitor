@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Comparator;
 
 @Service
@@ -20,15 +21,13 @@ public class DashboardService {
         final var daqui30Dias = hoje.plusDays(30);
 
         final var totalEmpresas = empresaRepository.count();
-
         final var totalAlvarasVencidos = empresaRepository.countAlvarasVencidos(hoje);
-
-        final var alvarasVencendo30Dias = empresaRepository.findAlvarasVencendoNoPeriodo(hoje, daqui30Dias);
+        final var alvarasVencendo30Dias = new ArrayList<>(empresaRepository.findAlvarasVencendoNoPeriodo(hoje, daqui30Dias));
         alvarasVencendo30Dias.sort(Comparator.comparing(AlvaraVencendoDTO::dataVencimento));
 
         final var daqui90Dias = hoje.plusDays(90);
 
-        final var proximos = empresaRepository.findAlvarasVencendoNoPeriodo(daqui30Dias.plusDays(1), daqui90Dias);
+        final var proximos = new ArrayList<>(empresaRepository.findAlvarasVencendoNoPeriodo(daqui30Dias.plusDays(1), daqui90Dias));
         proximos.sort(Comparator.comparing(AlvaraVencendoDTO::dataVencimento));
 
         final var proximosVencimentos = proximos.stream().limit(3).toList();
