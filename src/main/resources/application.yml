@@ -4,6 +4,7 @@ server:
 spring:
   jpa:
     show-sql: true
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
     properties:
       hibernate:
         format_sql: true
@@ -12,6 +13,3 @@ spring:
     hibernate:
       ddl-auto: update
 
-  # Ativa o perfil 'dev' por padrao. Isso fara o Spring procurar por um arquivo application-dev.yml
-  profiles:
-    active: dev
