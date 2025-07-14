@@ -4,7 +4,6 @@ server:
 spring:
   jpa:
     show-sql: true
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
     properties:
       hibernate:
         format_sql: true
