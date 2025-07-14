@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:17-alpine
+    container_name: alvara_db_postgres
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  backend:
+    container_name: alvara_api_backend
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/${DB_NAME}
+      SPRING_DATASOURCE_USERNAME: ${DB_USER}
+      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
+      APP_INITIAL_ADMIN_LOGIN: ${ADMIN_LOGIN}
+      APP_INITIAL_ADMIN_SENHA: ${ADMIN_PASSWORD}
+      API_SECURITY_TOKEN_SECRET: ${JWT_SECRET}
+    depends_on:
+      - db
+
+volumes:
+  postgres_data:

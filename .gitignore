@@ -24,3 +24,6 @@ Thumbs.db
 # ESTA É A REGRA MAIS IMPORTANTE: IGNORA QUALQUER ARQUIVO application-*.yml
 application-*.yml
 application-*.properties
+
+# Arquivo de variáveis de ambiente do Docker Compose
+.env
