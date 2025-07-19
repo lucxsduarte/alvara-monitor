@@ -21,9 +21,8 @@ Thumbs.db
 .mvn/
 
 # Arquivos de configuração de ambiente
-# ESTA É A REGRA MAIS IMPORTANTE: IGNORA QUALQUER ARQUIVO application-*.yml
-application-*.yml
-application-*.properties
+# Ignora apenas o arquivo de configuração do ambiente de desenvolvimento local
+application-dev.yml
 
 # Arquivo de variáveis de ambiente do Docker Compose
 .env
