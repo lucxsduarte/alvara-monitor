@@ -6,11 +6,13 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(classes = TokenService.class)
+@ActiveProfiles("test")
 @TestPropertySource(properties = {"api.security.token.secret=nosso-segredo-de-teste"})
 class TokenServiceTest {
 
