@@ -1,6 +1,6 @@
 # ♨️ API - Monitoramento de Alvarás
 
-![Status do Projeto](https://img.shields.io/badge/status-em--desenvolvimento-yellow)
+[![CI/CD Pipeline para API Monitoramento de Alvarás](https://github.com/lucxsduarte/alvara-monitor/actions/workflows/deploy.yml/badge.svg?branch=main)](https://github.com/lucxsduarte/alvara-monitor/actions/workflows/deploy.yml)
 
 Esta é a API backend da aplicação full-stack **Monitoramento de Alvarás**, desenvolvido com Spring Boot, Java 21 e JPA/Hibernate. Esta API é responsável por toda a lógica de negócio, gerenciamento de dados e comunicação com o banco de dados PostgreSQL.
 
@@ -10,6 +10,7 @@ Esta é a API backend da aplicação full-stack **Monitoramento de Alvarás**, d
 ---
 
 ### Funcionalidades Implementadas
+- ✅ **CI/CD com GitHub Actions:** Pipeline de integração e deploy contínuo que automaticamente testa, constrói a imagem Docker e implanta a aplicação no Render a cada push na branch `main`.
 - ✅ **Containerização com Docker:** Aplicação e banco de dados totalmente containerizados com Docker e orquestrados com Docker Compose para um ambiente de desenvolvimento portátil.
 - ✅ **Deploy na Nuvem:** API hospedada no Render e banco de dados PostgreSQL no Supabase.
 - ✅ **API REST Completa:** CRUD completo e funcional para a entidade `Empresa`, com filtros e busca.
