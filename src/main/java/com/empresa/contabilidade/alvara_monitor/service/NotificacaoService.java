@@ -17,7 +17,6 @@ import java.util.List;
 import java.util.Objects;
 
 @Service
-@Profile("prod")
 @RequiredArgsConstructor
 @Slf4j
 public class NotificacaoService {
@@ -30,6 +29,9 @@ public class NotificacaoService {
 
     @Value("${app.frontend.url}")
     private final String frontendUrl;
+
+    @Value("${app.notifications.enabled:false}")
+    private boolean notificationsEnabled;
 
     public void verificarEEnviarAlertas() {
         var configuracoesOpt = configuracaoRepository.findAll().stream().findFirst();
@@ -60,6 +62,11 @@ public class NotificacaoService {
     }
 
     private void enviarEmailDeResumo(final List<String> destinatarios, final List<Empresa> empresas, final List<LocalDate> datasDeVencimento) {
+        if (!notificationsEnabled) {
+            log.warn("O envio de notificações está desabilitado neste ambiente. Nenhum e-mail será enviado.");
+            return;
+        }
+
         if (Objects.isNull(destinatarios) || destinatarios.isEmpty()) {
             log.warn("Tentativa de envio de e-mail de notificação, mas não há destinatários configurados.");
             return;
