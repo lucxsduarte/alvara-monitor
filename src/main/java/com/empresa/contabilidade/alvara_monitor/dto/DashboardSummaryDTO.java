@@ -7,4 +7,5 @@ public record DashboardSummaryDTO(
         long totalAlvarasVencidos,
         List<AlvaraVencendoDTO> alvarasVencendo30Dias,
         List<AlvaraVencendoDTO> proximosVencimentos
-) {}
+) {
+}

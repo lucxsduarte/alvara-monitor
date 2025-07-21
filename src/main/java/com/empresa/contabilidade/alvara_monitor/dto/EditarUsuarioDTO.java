@@ -12,4 +12,5 @@ public record EditarUsuarioDTO(
         @NotBlank(message = "A role não pode ser vazia.")
         @Pattern(regexp = "ROLE_ADMIN|ROLE_USER", message = "A role deve ser ROLE_ADMIN ou ROLE_USER")
         String role
-) {}
+) {
+}

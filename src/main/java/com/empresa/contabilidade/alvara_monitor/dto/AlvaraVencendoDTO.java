@@ -7,4 +7,5 @@ public record AlvaraVencendoDTO(
         String nomeEmpresa,
         String tipoAlvara,
         LocalDate dataVencimento
-) {}
+) {
+}
