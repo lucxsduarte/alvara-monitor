@@ -28,7 +28,7 @@ public class NotificacaoService {
     private final JavaMailSender mailSender;
 
     @Value("${app.frontend.url}")
-    private final String frontendUrl;
+    private String frontendUrl;
 
     @Value("${app.notifications.enabled:false}")
     private boolean notificationsEnabled;
