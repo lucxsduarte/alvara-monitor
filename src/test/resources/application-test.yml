@@ -22,5 +22,8 @@ app:
     login: admin
     senha: senha123
 
+  frontend:
+    url: "http://url-de-teste-para-o-frontend.com"
+
 planilha:
   url: https://url.de.exemplo.para.testes
