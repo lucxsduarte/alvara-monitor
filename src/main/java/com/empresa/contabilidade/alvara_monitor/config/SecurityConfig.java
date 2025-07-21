@@ -1,5 +1,6 @@
 package com.empresa.contabilidade.alvara_monitor.config;
 
+import com.empresa.contabilidade.alvara_monitor.security.ApiKeyAuthFilter;
 import com.empresa.contabilidade.alvara_monitor.security.SecurityFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -26,12 +27,17 @@ public class SecurityConfig implements WebMvcConfigurer {
 
     private final SecurityFilter securityFilter;
 
+    private final ApiKeyAuthFilter apiKeyAuthFilter;
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .addFilterBefore(apiKeyAuthFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(req -> {
+                    req.requestMatchers("/api/tasks/**").permitAll();
                     req.requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll();
                     req.requestMatchers(HttpMethod.GET, "/api/planilha/importar-planilha").permitAll();
                     req.requestMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**").permitAll();
@@ -39,7 +45,6 @@ public class SecurityConfig implements WebMvcConfigurer {
                     req.requestMatchers("/api/**").hasAnyRole("USER", "ADMIN");
                     req.anyRequest().denyAll();
                 })
-                .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .cors(Customizer.withDefaults())
                 .build();
     }
@@ -55,7 +60,7 @@ public class SecurityConfig implements WebMvcConfigurer {
     }
 
     @Override
-    public void addCorsMappings(CorsRegistry registry) {
+    public void addCorsMappings(final CorsRegistry registry) {
         registry.addMapping("/**")
                 .allowedOrigins("http://localhost:4200", "https://alvara-monitor-producao.vercel.app")
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")

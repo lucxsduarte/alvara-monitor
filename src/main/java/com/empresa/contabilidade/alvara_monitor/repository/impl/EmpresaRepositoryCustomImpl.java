@@ -5,10 +5,13 @@ import com.empresa.contabilidade.alvara_monitor.model.Empresa;
 import com.empresa.contabilidade.alvara_monitor.repository.EmpresaRepositoryCustom;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.Query;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 public class EmpresaRepositoryCustomImpl implements EmpresaRepositoryCustom {
 
@@ -36,7 +39,7 @@ public class EmpresaRepositoryCustomImpl implements EmpresaRepositoryCustom {
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<AlvaraVencendoDTO> findAlvarasVencendoNoPeriodo(LocalDate dataInicio, LocalDate dataFim) {
+    public List<AlvaraVencendoDTO> findAlvarasVencendoNoPeriodo(final LocalDate dataInicio, final LocalDate dataFim) {
         final var nativeSql =
                 "SELECT id, nome, 'Bombeiros' as tipo_alvara, venc_bombeiros as data_vencimento FROM empresas WHERE venc_bombeiros BETWEEN ? AND ? " +
                         "UNION ALL " +
@@ -70,12 +73,12 @@ public class EmpresaRepositoryCustomImpl implements EmpresaRepositoryCustom {
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<Empresa> findComAlvarasVencidos(LocalDate dataReferencia) {
-        final var nativeSql = "SELECT * FROM empresas e WHERE " +
-                "e.venc_bombeiros < ? OR " +
-                "e.venc_vigilancia < ? OR " +
-                "e.venc_policia < ? OR " +
-                "e.venc_funcionamento < ?";
+    public List<Empresa> findComAlvarasVencidos(final LocalDate dataReferencia) {
+        final var nativeSql = "SELECT * FROM empresas e " +
+                "WHERE e.venc_bombeiros < ? " +
+                "   OR e.venc_vigilancia < ? " +
+                "   OR e.venc_policia < ? " +
+                "   OR e.venc_funcionamento < ? ";
 
 
         final var query = entityManager.createNativeQuery(nativeSql, Empresa.class);
@@ -83,6 +86,34 @@ public class EmpresaRepositoryCustomImpl implements EmpresaRepositoryCustom {
         query.setParameter(2, dataReferencia);
         query.setParameter(3, dataReferencia);
         query.setParameter(4, dataReferencia);
+
+        return query.getResultList();
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<Empresa> findEmpresasComAlvaraVencendoEmDatas(final List<LocalDate> datas) {
+        if (Objects.isNull(datas) || datas.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        final var placeholders = String.join(", ", Collections.nCopies(datas.size(), "?"));
+
+        final var nativeSql = String.format(" SELECT * FROM empresas e " +
+                        " WHERE e.venc_bombeiros IN (%s) " +
+                        "    OR e.venc_funcionamento IN (%s) " +
+                        "    OR e.venc_policia IN (%s) " +
+                        "    OR e.venc_vigilancia IN (%s) ",
+                placeholders, placeholders, placeholders, placeholders);
+
+        final var query = entityManager.createNativeQuery(nativeSql, Empresa.class);
+
+        int paramIndex = 1;
+        for (int i = 0; i < 4; i++) {
+            for (var data : datas) {
+                query.setParameter(paramIndex++, data);
+            }
+        }
 
         return query.getResultList();
     }

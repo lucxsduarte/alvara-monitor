@@ -10,6 +10,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
+import java.util.Objects;
+
 @Component
 @RequiredArgsConstructor
 @Slf4j
@@ -27,7 +29,7 @@ public class DataInitializer implements CommandLineRunner {
     @Override
     public void run(String... args) {
         if (StringUtils.hasText(adminLogin) && StringUtils.hasText(adminSenha)) {
-            if (usuarioRepository.findByLogin(adminLogin) == null) {
+            if (Objects.isNull(usuarioRepository.findByLogin(adminLogin))) {
                 log.info("Nenhum usuário administrador inicial encontrado, criando um novo...");
 
                 var adminUser = new Usuario(

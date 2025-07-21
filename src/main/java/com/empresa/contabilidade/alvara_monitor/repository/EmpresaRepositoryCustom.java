@@ -13,4 +13,6 @@ public interface EmpresaRepositoryCustom {
     List<AlvaraVencendoDTO> findAlvarasVencendoNoPeriodo(LocalDate dataInicio, LocalDate dataFim);
 
     List<Empresa> findComAlvarasVencidos(LocalDate dataReferencia);
+
+    List<Empresa> findEmpresasComAlvaraVencendoEmDatas(List<LocalDate> datas);
 }

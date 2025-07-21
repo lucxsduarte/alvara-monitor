@@ -14,6 +14,9 @@ api:
     token:
       secret: segredo-jwt-para-ambiente-de-teste
 
+  task:
+    key: chave-secreta-para-testes-de-tasks
+
 app:
   initial-admin:
     login: admin
