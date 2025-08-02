@@ -1,12 +1,13 @@
 package com.empresa.contabilidade.alvara_monitor.service;
 
+import com.empresa.contabilidade.alvara_monitor.config.RabbitMQConfig;
 import com.empresa.contabilidade.alvara_monitor.model.Empresa;
 import com.empresa.contabilidade.alvara_monitor.repository.ConfiguracaoNotificacaoRepository;
 import com.empresa.contabilidade.alvara_monitor.repository.EmpresaRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Profile;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -33,7 +34,13 @@ public class NotificacaoService {
     @Value("${app.notifications.enabled:false}")
     private boolean notificationsEnabled;
 
-    public void verificarEEnviarAlertas() {
+    @RabbitListener(queues = RabbitMQConfig.NOTIFICATION_QUEUE)
+    private void processarPedidoDeNotificacao(final String mensagem) {
+        log.info("Mensagem recebida da fila: '{}'. Iniciando verificação de alvarás.", mensagem);
+        this.verificarEEnviarAlertas();
+    }
+
+    private void verificarEEnviarAlertas() {
         var configuracoesOpt = configuracaoRepository.findAll().stream().findFirst();
         if (configuracoesOpt.isEmpty() || configuracoesOpt.get().getEmailsDestino().isEmpty()) {
             log.warn("Nenhuma configuração de notificação ou e-mail de destino encontrado. A tarefa não será executada.");
