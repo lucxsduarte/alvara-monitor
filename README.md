@@ -10,6 +10,7 @@ Esta é a API backend da aplicação full-stack **Monitoramento de Alvarás**, d
 ---
 
 ### Funcionalidades Implementadas
+- ✅ **Arquitetura Assíncrona com RabbitMQ:** As tarefas de notificação via e-mail são processadas em segundo plano para maior performance e resiliência.
 - ✅ **CI/CD com GitHub Actions:** Pipeline de integração e deploy contínuo que automaticamente testa, constrói a imagem Docker e implanta a aplicação no Render a cada push na branch `main`.
 - ✅ **Containerização com Docker:** Aplicação e banco de dados totalmente containerizados com Docker e orquestrados com Docker Compose para um ambiente de desenvolvimento portátil.
 - ✅ **Deploy na Nuvem:** API hospedada no Render e banco de dados PostgreSQL no Supabase.
