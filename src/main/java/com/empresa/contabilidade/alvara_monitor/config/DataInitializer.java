@@ -1,7 +1,7 @@
 package com.empresa.contabilidade.alvara_monitor.config;
 
-import com.empresa.contabilidade.alvara_monitor.model.Usuario;
-import com.empresa.contabilidade.alvara_monitor.repository.UsuarioRepository;
+import com.empresa.contabilidade.alvara_monitor.entities.User;
+import com.empresa.contabilidade.alvara_monitor.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,28 +17,28 @@ import java.util.Objects;
 @Slf4j
 public class DataInitializer implements CommandLineRunner {
 
-    private final UsuarioRepository usuarioRepository;
+    private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
     @Value("${app.initial-admin.login}")
     private String adminLogin;
 
     @Value("${app.initial-admin.senha}")
-    private String adminSenha;
+    private String adminPassword;
 
     @Override
     public void run(String... args) {
-        if (StringUtils.hasText(adminLogin) && StringUtils.hasText(adminSenha)) {
-            if (Objects.isNull(usuarioRepository.findByLogin(adminLogin))) {
+        if (StringUtils.hasText(adminLogin) && StringUtils.hasText(adminPassword)) {
+            if (Objects.isNull(userRepository.findByLogin(adminLogin))) {
                 log.info("Nenhum usuário administrador inicial encontrado, criando um novo...");
 
-                var adminUser = new Usuario(
+                var adminUser = new User(
                         adminLogin,
-                        passwordEncoder.encode(adminSenha),
+                        passwordEncoder.encode(adminPassword),
                         "ROLE_ADMIN"
                 );
 
-                usuarioRepository.save(adminUser);
+                userRepository.save(adminUser);
                 log.info("Usuário administrador '{}' criado com sucesso.", adminLogin);
             } else {
                 log.info("Usuário administrador '{}' já existe.", adminLogin);

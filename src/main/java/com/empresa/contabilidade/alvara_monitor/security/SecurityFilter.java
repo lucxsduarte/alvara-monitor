@@ -1,7 +1,7 @@
 package com.empresa.contabilidade.alvara_monitor.security;
 
-import com.empresa.contabilidade.alvara_monitor.repository.UsuarioRepository;
-import com.empresa.contabilidade.alvara_monitor.service.TokenService;
+import com.empresa.contabilidade.alvara_monitor.repositories.UserRepository;
+import com.empresa.contabilidade.alvara_monitor.services.TokenService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -22,16 +22,16 @@ import java.util.Objects;
 public class SecurityFilter extends OncePerRequestFilter {
 
     private final TokenService tokenService;
-    private final UsuarioRepository usuarioRepository;
+    private final UserRepository userRepository;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         var tokenJWT = recuperarToken(request);
         if (Objects.nonNull(tokenJWT)) {
             var subject = tokenService.getSubject(tokenJWT);
-            var usuario = usuarioRepository.findByLogin(subject);
+            var user = userRepository.findByLogin(subject);
 
-            var authentication = new UsernamePasswordAuthenticationToken(usuario, null, usuario.getAuthorities());
+            var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
         }

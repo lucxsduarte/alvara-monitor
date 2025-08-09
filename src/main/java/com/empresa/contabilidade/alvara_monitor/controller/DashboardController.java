@@ -1,7 +1,7 @@
 package com.empresa.contabilidade.alvara_monitor.controller;
 
-import com.empresa.contabilidade.alvara_monitor.dto.DashboardSummaryDTO;
-import com.empresa.contabilidade.alvara_monitor.service.DashboardService;
+import com.empresa.contabilidade.alvara_monitor.dtos.DashboardSummaryDTO;
+import com.empresa.contabilidade.alvara_monitor.services.DashboardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

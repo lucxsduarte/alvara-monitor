@@ -23,3 +23,7 @@ spring:
         auth: true
         starttls:
           enable: true
+
+app:
+  cors:
+    allowed-origins: ${APP_CORS_ALLOWED-ORIGINS}

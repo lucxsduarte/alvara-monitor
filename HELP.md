@@ -1,7 +1,7 @@
 # Read Me First
 The following was discovered as part of building this project:
 
-* The original package name 'com.empresa.contabilidade.alvara-monitor' is invalid and this project uses 'com.empresa.contabilidade.alvara_monitor' instead.
+* The original package name 'com.company.contabilidade.alvara-monitor' is invalid and this project uses 'com.company.contabilidade.alvara_monitor' instead.
 
 # Getting Started
 
