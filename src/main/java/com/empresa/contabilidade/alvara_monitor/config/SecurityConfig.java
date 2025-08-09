@@ -3,6 +3,7 @@ package com.empresa.contabilidade.alvara_monitor.config;
 import com.empresa.contabilidade.alvara_monitor.security.ApiKeyAuthFilter;
 import com.empresa.contabilidade.alvara_monitor.security.SecurityFilter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -29,9 +30,8 @@ public class SecurityConfig implements WebMvcConfigurer {
 
     private final ApiKeyAuthFilter apiKeyAuthFilter;
 
-    private String localUrl;
-
-    private String prodUrl;
+    @Value("${app.cors.allowed-origins}")
+    private String[] allowedOrigins;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -66,7 +66,7 @@ public class SecurityConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(final CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("http://localhost:4200", "https://alvara-monitor-producao.vercel.app")
+                .allowedOrigins(allowedOrigins)
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowedHeaders("*");
     }
