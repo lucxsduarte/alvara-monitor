@@ -25,5 +25,8 @@ app:
   frontend:
     url: "http://url-de-teste-para-o-frontend.com"
 
+  cors:
+    allowed-origins: "http://url-de-teste-frontend"
+
 planilha:
   url: https://url.de.exemplo.para.testes
