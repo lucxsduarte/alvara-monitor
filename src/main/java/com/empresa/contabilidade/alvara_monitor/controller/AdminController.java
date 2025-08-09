@@ -1,11 +1,11 @@
 package com.empresa.contabilidade.alvara_monitor.controller;
 
-import com.empresa.contabilidade.alvara_monitor.dto.ConfiguracaoNotificacaoDTO;
-import com.empresa.contabilidade.alvara_monitor.dto.CriarUsuarioDTO;
-import com.empresa.contabilidade.alvara_monitor.dto.EditarUsuarioDTO;
-import com.empresa.contabilidade.alvara_monitor.dto.UsuarioDTO;
-import com.empresa.contabilidade.alvara_monitor.service.ConfiguracaoNotificacaoService;
-import com.empresa.contabilidade.alvara_monitor.service.UsuarioService;
+import com.empresa.contabilidade.alvara_monitor.dtos.NotificationSettingsDTO;
+import com.empresa.contabilidade.alvara_monitor.dtos.CreateUserDTO;
+import com.empresa.contabilidade.alvara_monitor.dtos.EditUserDTO;
+import com.empresa.contabilidade.alvara_monitor.dtos.UserResponseDTO;
+import com.empresa.contabilidade.alvara_monitor.services.NotificationSettingsService;
+import com.empresa.contabilidade.alvara_monitor.services.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,42 +19,42 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AdminController {
 
-    private final UsuarioService usuarioService;
+    private final UserService userService;
 
-    private final ConfiguracaoNotificacaoService configuracaoNotificacaoService;
+    private final NotificationSettingsService notificationSettingsService;
 
-    @GetMapping("/usuarios")
-    public ResponseEntity<List<UsuarioDTO>> listarUsuarios() {
-        return ResponseEntity.ok(usuarioService.listarTodos());
+    @GetMapping("/users")
+    public ResponseEntity<List<UserResponseDTO>> listUsers() {
+        return ResponseEntity.ok(userService.findAll());
     }
 
-    @GetMapping("/notificacoes/configuracoes")
-    public ResponseEntity<ConfiguracaoNotificacaoDTO> getNotificationSettings() {
-        var settings = configuracaoNotificacaoService.getSettings();
+    @GetMapping("/notifications/settings")
+    public ResponseEntity<NotificationSettingsDTO> getNotificationSettings() {
+        final var settings = notificationSettingsService.getSettings();
         return ResponseEntity.ok(settings);
     }
 
-    @PostMapping("/usuarios")
-    public ResponseEntity<UsuarioDTO> criarUsuario(@RequestBody @Valid final CriarUsuarioDTO dados) {
-        var usuarioCriado = usuarioService.criarNovoUsuario(dados);
-        return ResponseEntity.status(HttpStatus.CREATED).body(usuarioCriado);
+    @PostMapping("/users")
+    public ResponseEntity<UserResponseDTO> createUser(@RequestBody @Valid final CreateUserDTO userDTO) {
+        final var createdUser = userService.save(userDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
     }
 
-    @PutMapping("/usuarios/{id}")
-    public ResponseEntity<UsuarioDTO> atualizarUsuario(@PathVariable Long id, @RequestBody @Valid EditarUsuarioDTO dados) {
-        var usuarioAtualizado = usuarioService.atualizar(id, dados);
-        return ResponseEntity.ok(usuarioAtualizado);
+    @PutMapping("/users/{id}")
+    public ResponseEntity<UserResponseDTO> updateUser(@PathVariable final Long id, @RequestBody @Valid final EditUserDTO userDTO) {
+        final var updatedUser = userService.update(id, userDTO);
+        return ResponseEntity.ok(updatedUser);
     }
 
-    @PutMapping("/notificacoes/configuracoes")
-    public ResponseEntity<ConfiguracaoNotificacaoDTO> updateNotificationSettings(@RequestBody ConfiguracaoNotificacaoDTO dto) {
-        var updatedSettings = configuracaoNotificacaoService.updateSettings(dto);
+    @PutMapping("/notifications/settings")
+    public ResponseEntity<NotificationSettingsDTO> updateNotificationSettings(@RequestBody final NotificationSettingsDTO dto) {
+        final var updatedSettings = notificationSettingsService.updateSettings(dto);
         return ResponseEntity.ok(updatedSettings);
     }
 
-    @DeleteMapping("/usuarios/{id}")
-    public ResponseEntity<Void> deletarUsuario(@PathVariable Long id) {
-        usuarioService.deletar(id);
+    @DeleteMapping("/users/{id}")
+    public ResponseEntity<Void> deleteUser(@PathVariable final Long id) {
+        userService.delete(id);
         return ResponseEntity.noContent().build();
     }
 }
