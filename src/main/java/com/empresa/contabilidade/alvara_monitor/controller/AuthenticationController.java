@@ -23,7 +23,7 @@ public class AuthenticationController {
 
     @PostMapping("/login")
     public ResponseEntity<TokenJwtDTO> efetuarLogin(@RequestBody final AuthenticationDataDTO dataDTO) {
-        var authenticationToken = new UsernamePasswordAuthenticationToken(dataDTO.login(), dataDTO.senha());
+        var authenticationToken = new UsernamePasswordAuthenticationToken(dataDTO.login(), dataDTO.password());
 
         var authentication = manager.authenticate(authenticationToken);
 

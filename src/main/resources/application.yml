@@ -2,6 +2,11 @@ server:
   port: 8080
 
 spring:
+  datasource:
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+
   jpa:
     show-sql: true
     database-platform: org.hibernate.dialect.PostgreSQLDialect
@@ -24,6 +29,23 @@ spring:
         starttls:
           enable: true
 
+planilha:
+  url: ${PLANILHA_URL}
+
+api:
+  security:
+    token:
+      secret: ${API_SECURITY_TOKEN_SECRET}
+  task:
+    key: ${API_TASK_KEY}
+
 app:
+  initial-admin:
+    login: ${APP_INITIAL_ADMIN_LOGIN}
+    senha: ${APP_INITIAL_ADMIN_PASSWORD}
+  frontend:
+    url: ${APP_FRONTEND_URL}
+  notifications:
+    enabled: ${APP_NOTIFICATIONS_ENABLED:false}
   cors:
-    allowed-origins: ${APP_CORS_ALLOWED-ORIGINS}
+    allowed-origins: ${APP_CORS_ALLOWEDORIGINS}
